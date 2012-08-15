@@ -7,4 +7,5 @@
   (println "Welcome to my project! These are your args:" args))
   (println (seq (.getURLs (java.lang.ClassLoader/getSystemClassLoader))))
 
-(jmx/mbean-names \"*:*\")
+(println jmx/mbean-names "*:*")
+(doseq [i (jmx/mbean-names "*:*")] (println i))

@@ -2,6 +2,7 @@
   (:require 
     [clojure.java.jmx   :as jmx] 
     [clojure.tools.cli  :as cli]
+    [clojure.pprint]
   (:gen-class)))
 
 (defn invoke [{:keys [host port bean]}]
@@ -9,7 +10,7 @@
   (defn alltehbeans [path]
     (map (memfn getCanonicalName) (jmx/mbean-names path)))
   (defn gimmethat [x]
-    (doseq [s x] (println (jmx/mbean s)) ))
+    (doseq [s x] (clojure.pprint/pprint (jmx/mbean s))))
   (jmx/with-connection {:host host, :port port}
     (gimmethat (alltehbeans bean))))
 

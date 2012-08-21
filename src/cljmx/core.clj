@@ -1,6 +1,7 @@
 (ns cljmx.core
-  (:require [clojure.java.jmx   :as jmx], 
-            [clojure.tools.cli  :as cli]
+  (:require 
+    [clojure.java.jmx   :as jmx] 
+    [clojure.tools.cli  :as cli]
   (:gen-class)))
 
 (defn invoke [{:keys [host port bean]}]
@@ -18,11 +19,9 @@
     (System/exit 1))
   (invoke options))
 
-(defn -main [& args]  
-  (run-with (cli/cli args    
-    ["-h" "--host" "Host to connect to" :default "localhost"]
-    ["-p" "--port" "Port to connect to" :parse-fn #(Integer. %)]
-    ["-b" "--bean" "Bean name"]
-    ["--help" "Show help" :default false :flag true])))
-
-
+(defn -main [& args]
+  (run-with (cli/cli args
+    ["-h" "--host" "Host to connect to" :default "localhost"                        ]
+    ["-p" "--port" "Port to connect to" :default 9000       :parse-fn #(Integer. %) ]
+    ["-b" "--bean" "Bean name"          :default "*:*"                              ]
+    ["--help" "Show help"               :default false      :flag true              ])))
